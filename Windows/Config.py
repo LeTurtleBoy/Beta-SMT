@@ -2,8 +2,6 @@ import wx
 import Scan
 import pandas as pd
 
-º
-
 class DataSMTConf:
 
     def __init__(self):
