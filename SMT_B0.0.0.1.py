@@ -9,7 +9,6 @@ import os
 import signal
 import sys
 import wx
-
 sys.path.insert(0, 'Windows\\')
 import Config
 import Pest
