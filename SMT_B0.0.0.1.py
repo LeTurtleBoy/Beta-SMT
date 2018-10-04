@@ -13,8 +13,6 @@ sys.path.insert(0, 'Windows\\')
 import Config
 import Pest
 
-
-
 class SMT_Beta(wx.Frame):
 
 	#Inicio de la aplicación

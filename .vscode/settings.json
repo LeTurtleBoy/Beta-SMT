@@ -1,4 +1,5 @@
 {
-      "python.pythonPath": "C:\\Users\\chris\\AppData\\Local\\Programs\\Python\\Python35\\python.exe",
-      "python.linting.pylintEnabled": false
+      "python.pythonPath": "C:\\Users\\chris\\Anaconda3\\Anaconda\\python.exe",
+      "python.linting.pylintEnabled": false,
+      "files.autoSave": "onWindowChange"
 }
