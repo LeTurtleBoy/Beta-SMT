@@ -82,13 +82,13 @@ class SMT_Beta(wx.Frame):
 		self.count = 1			#Ventana inicial		
 		self.maxcount =  10  	#Numero de ventanas
 		self.toolbar = self.CreateToolBar(wx.CENTER)
-		self.toolbar.SetBackgroundColour((200,200,200))
+		self.toolbar.SetBackgroundColour((255,255,255))
 		Arrow3 = self.scale_bitmap(wx.Bitmap('Iconos2\\png\\settings.png'), 30,30)
 		texit = self.toolbar.AddTool(wx.ID_NEW, '', Arrow3)
 		self.toolbar.AddSeparator()
 		self.toolbar.AddStretchableSpace()
-		Arrow1 = self.scale_bitmap(wx.Bitmap('Iconos\\png\\left-arrow.png'),40,40)
-		Arrow2 = self.scale_bitmap(wx.Bitmap('Iconos\\png\\right-arrow.png'), 40,40)
+		Arrow1 = self.scale_bitmap(wx.Bitmap('Iconos2\\png\\left-arrow.png'),40,40)
+		Arrow2 = self.scale_bitmap(wx.Bitmap('Iconos2\\png\\right-arrow.png'), 40,40)
 
 
 		tundo = self.toolbar.AddTool(wx.ID_UNDO, 'Tango', Arrow1)
