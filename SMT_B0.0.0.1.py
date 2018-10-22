@@ -26,10 +26,10 @@ class SMT_Beta(wx.Frame):
 	def InitUI(self):
 		#Inicio grafico y de estilo
 		self.Centre() #Centro la pantalla
-		self.SetSize((700, 400)) #Tamaño
+		self.SetSize((800, 600)) #Tamaño
 		self.SetTitle('SMT_Beta 0.0.0.1') #Titulo
-		self.SetMaxSize((700,400))
-		self.SetMinSize((700,400))
+		self.SetMaxSize((800,600))
+		self.SetMinSize((800,600))
 		self.SetIcon(wx.Icon(self.scale_bitmap(wx.Bitmap('Iconos2\\png\\idea-1.png'),30,30)))
 		#Eventos Principales
 		
@@ -176,7 +176,8 @@ class SMT_Beta(wx.Frame):
 
 def main():
 	app = wx.App()
-	ex = SMT_Beta(wx.Frame(None))
+	default = wx.RESIZE_BORDER | wx.SYSTEM_MENU | wx.CAPTION | wx.CLOSE_BOX | wx.CLIP_CHILDREN | wx.FRAME_NO_TASKBAR | wx.STAY_ON_TOP
+	ex = SMT_Beta(wx.Frame(None),style=default)
 	ex.Show()
 	app.MainLoop()
 	print("State")
