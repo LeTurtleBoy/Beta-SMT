@@ -9,28 +9,35 @@ import os
 import signal
 import sys
 import wx
+import wx.gizmos as gizmos
+import time
+
 sys.path.insert(0, 'Windows\\')
 import Config
 import Pest
+import Pest1
+#import Serial
+
+        
+
 
 class SMT_Beta(wx.Frame):
 
 	#Inicio de la aplicación
 	def __init__(self, *args, **kwargs):
 		super(SMT_Beta, self).__init__(*args, **kwargs)
-		#self.Maximize(True) #Iniciar Maximizado
+		self.Maximize(True) #Iniciar Maximizado
 		self.InitUI()
-
 
 	#Metodo de inicio
 	def InitUI(self):
 		#Inicio grafico y de estilo
-		self.Centre() #Centro la pantalla
 		self.SetSize((800, 600)) #Tamaño
 		self.SetTitle('SMT_Beta 0.0.0.1') #Titulo
 		self.SetMaxSize((800,600))
 		self.SetMinSize((800,600))
-		self.SetIcon(wx.Icon(self.scale_bitmap(wx.Bitmap('Iconos2\\png\\idea-1.png'),30,30)))
+		self.SetIcon(wx.Icon(self.scale_bitmap(wx.Bitmap('Iconos\\png\\pie-chart-1.png'),30,30)))
+		self.SetBackgroundColour((10,10,10,100))
 		#Eventos Principales
 		
 		self.EventoSalida()
@@ -38,10 +45,6 @@ class SMT_Beta(wx.Frame):
 		#Inicio de propiedades
 		self.Pestanhas()
 		self.Menus() #Creo los menus con Iconos
-		
-
-		
-		
 
 	#Herramientas y Eventos
 
@@ -78,25 +81,34 @@ class SMT_Beta(wx.Frame):
 	#----------------------------------------------#
 	#				MENU
 	#----------------------------------------------#
+
 	def Menus(self):
 		self.count = 1			#Ventana inicial		
 		self.maxcount =  10  	#Numero de ventanas
 		self.toolbar = self.CreateToolBar(wx.CENTER)
-		self.toolbar.SetBackgroundColour((255,255,255))
-		Arrow3 = self.scale_bitmap(wx.Bitmap('Iconos2\\png\\settings.png'), 30,30)
+		wx.SystemOptions.SetOption("msw.remap", 2)
+		self.toolbar.SetBackgroundColour((230,230,230))
+		self.toolbar.SetToolBitmapSize((30,30))
+		self.toolbar.SetMargins(100,100)
+		# set frame size to fit panel
+		self.Fit()
+
+	
+
+		#Establecer imagenes
+		Arrow1 = self.scale_bitmap(wx.Bitmap('Iconos\\png\\left-arrow.png'),40,40)
+		Arrow2 = self.scale_bitmap(wx.Bitmap('Iconos\\png\\right-arrow2.png'), 40,40)
+		Arrow3 = self.scale_bitmap(wx.Bitmap('Iconos2\\png\\settings-2.png'), 30,30)
+		
+
 		texit = self.toolbar.AddTool(wx.ID_NEW, '', Arrow3)
-		self.toolbar.AddSeparator()
-		self.toolbar.AddStretchableSpace()
-		Arrow1 = self.scale_bitmap(wx.Bitmap('Iconos2\\png\\left-arrow.png'),40,40)
-		Arrow2 = self.scale_bitmap(wx.Bitmap('Iconos2\\png\\right-arrow.png'), 40,40)
-
-
+		for x in range(10):
+			self.toolbar.AddSeparator()
 		tundo = self.toolbar.AddTool(wx.ID_UNDO, 'Tango', Arrow1)
 		for x in range(10):
 			self.toolbar.AddSeparator()
 		tredo = self.toolbar.AddTool(wx.ID_REDO, 'label', Arrow2)
-		self.toolbar.AddStretchableSpace()
-		self.toolbar.AddSeparator()
+
 		self.toolbar.Realize()
 
 		self.Bind(wx.EVT_TOOL, self.Config, texit)
@@ -108,8 +120,9 @@ class SMT_Beta(wx.Frame):
 	def Pestanhas(self):
 		self.p = wx.Panel(self)
 		self.nb = wx.Notebook(self.p)
+		self.p.SetBackgroundColour((10,10,10))
 		# Create the tab windows
-		tab1 = Pest.TabOne(self.nb)
+		tab1 = Pest1.TabOne(self.nb)
 		tab2 = Pest.TabTwo(self.nb)
 		tab3 = Pest.TabThree(self.nb)
 		tab4 = Pest.TabFour(self.nb)
@@ -130,7 +143,6 @@ class SMT_Beta(wx.Frame):
 
 		print("Pestañas Done")
 
-
 	def Izquierda(self, e):
 		if self.count > 1 and self.count <= self.maxcount: #Si aprieto voy al menu
 			self.count = self.count - 1
@@ -150,7 +162,6 @@ class SMT_Beta(wx.Frame):
 			self.toolbar.EnableTool(wx.ID_UNDO, True)
 		#self.Ventana()
 		self.setPagenb()
-		
 
 	def Ventana(self):
 		#Llamar la ventana que sea necesaria
@@ -165,7 +176,6 @@ class SMT_Beta(wx.Frame):
 			print("Pagina no Existe")
 			self.count -= 1
 
-
 	def Config(self, event):
 		self.second_window =Config.ConfigMenu()
 		self.second_window.Show()
@@ -173,6 +183,7 @@ class SMT_Beta(wx.Frame):
 	def onbtn(self, event):
 		print ("First radioBtn = ", self.radio.GetValue())
 		print ("Second radioBtn = ", self.radio2.GetValue())
+
 
 def main():
 	app = wx.App()

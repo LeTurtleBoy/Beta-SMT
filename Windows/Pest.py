@@ -5,10 +5,6 @@ class BasicTab(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
         #Meto todos los metodos comunes de las TAB
-        
-class TabOne(BasicTab):
-    def __init__(self, parent):
-        BasicTab.__init__(self,parent)
  
 class TabTwo(BasicTab):
     def __init__(self, parent):
