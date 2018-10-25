@@ -33,7 +33,7 @@ class SMT_Beta(wx.Frame):
 	def InitUI(self):
 		#Inicio grafico y de estilo
 		self.SetSize((800, 600)) #Tamaño
-		self.SetTitle('SMT_Beta 0.0.0.1') #Titulo
+		self.SetTitle('SMT_Beta 0.0.0.2') #Titulo
 		self.SetMaxSize((800,600))
 		self.SetMinSize((800,600))
 		self.SetIcon(wx.Icon(self.scale_bitmap(wx.Bitmap('Iconos\\png\\pie-chart-1.png'),30,30)))
