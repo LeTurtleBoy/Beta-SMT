@@ -10,9 +10,10 @@ class DataSMTConf:
         self.Serial1 = 0;
         self.Serial2 = 0;
         self.Serial3 = 0;
+        self.Serial4 = 0;
         self.NumTanks = 0;
     def __str__(self):
-        return str(self.IdVel)+","+str(self.Vel)+","+str(self.NumTanks)+","+str(self.Serial1)+","+str(self.Serial2)+","+str(self.Serial3)
+        return str(self.IdVel)+","+str(self.Vel)+","+str(self.NumTanks)+","+str(self.Serial1)+","+str(self.Serial2)+","+str(self.Serial3)+","+str(self.Serial4)
     
 
 class ConfigMenu(wx.Frame):
@@ -44,24 +45,29 @@ class ConfigMenu(wx.Frame):
         self.rbox = wx.RadioBox(pnl, label = 'Velocidad de comunicación serial', pos = (10,10), choices = self.lblList,majorDimension = 2, style = wx.RA_SPECIFY_ROWS) 
         self.rbox.Bind(wx.EVT_RADIOBOX,self.onRadioBox)
 
-        self.NumSerial = wx.SpinCtrl(pnl, pos = (100,130), min=1, max=4, initial=1, name="NumTanks")
-        self.LabelS0 = wx.StaticText( pnl, pos=  (10,100), label ="Número de tanques:")
+        self.LabelS0 = wx.StaticText  ( pnl, pos = (10 ,100), label ="Número de tanques:")
+        self.NumSerial = wx.SpinCtrl  ( pnl, pos = (170,100), min=1, max=4, initial=1, name="NumTanks", size = (50,20))
+        
+        self.Line1 = wx.StaticLine    ( pnl, pos = (10 ,125 ),size  = (310,2))
 
-
-        self.Serial1 = wx.SpinCtrl(   pnl, pos = (100,130), min=0, max=100000, initial=30000, name="Serial 1: ")
-        self.LabelS1 = wx.StaticText( pnl, pos=  (10,130), label ="Serial tanque 1:")
-
-        self.Serial2 = wx.SpinCtrl(   pnl, pos = (100,160), min=0, max=100000, initial=30000, name="Serial 2: ")
-        self.LabelS2 = wx.StaticText( pnl, pos = (10,160), label ="Serial tanque 2:")
-
-        self.Serial3 = wx.SpinCtrl(   pnl, pos = (100,190), min=0, max=100000, initial=30000, name="Serial 3: ")
-        self.LabelS3 = wx.StaticText( pnl, pos = (10,190), label ="Serial tanque 3:")
-
+        self.LabelS1 = wx.StaticText  ( pnl, pos = (10 ,135), label = "Tanque 1:")
+        self.Serial1 = wx.SpinCtrl    ( pnl, pos = (80 ,135), min   = 100000, max = 999999, initial = 100000, name = "Serial 1: ", size = (68,20))
+        self.LabelS2 = wx.StaticText  ( pnl, pos = (170,135), label = "Tanque 2:")
+        self.Serial2 = wx.SpinCtrl    ( pnl, pos = (240,135), min   = 100000, max = 999999, initial = 100000, name = "Serial 2: ", size = (68,20))
+        
+        self.LabelS3 = wx.StaticText  ( pnl, pos = (10 ,170), label = "Tanque 3:")
+        self.Serial3 = wx.SpinCtrl    ( pnl, pos = (80 ,170), min   = 100000, max = 999999, initial = 100000, name = "Serial 3: ", size = (70,20))
+        self.LabelS4 = wx.StaticText  ( pnl, pos = (170,170), label = "Tanque 4:")
+        self.Serial4 = wx.SpinCtrl    ( pnl, pos = (240,170), min   = 100000, max = 999999, initial = 100000, name = "Serial 4: ", size = (70,20))
+        
+        self.Line2 = wx.StaticLine    ( pnl, pos = (10 ,195), size  = (310,2))
 
         #Cargar Datos Actuales
         self.LoadInfo()
         self.SetSize((350,600))
-        
+        self.SetMaxSize((350,600))
+        self.SetMinSize((350,600))
+
     def LoadInfo(self):
         try:
             #Obtengo la información
@@ -74,28 +80,26 @@ class ConfigMenu(wx.Frame):
             self.dataSMT.Serial1  = int(Data.split(',')[3])
             self.dataSMT.Serial2  = int(Data.split(',')[4])
             self.dataSMT.Serial3  = int(Data.split(',')[5])
+            self.dataSMT.Serial4  = int(Data.split(',')[6])
 
-
-            print("Velocidad:",str(self.dataSMT.Vel), " Id: ",self.dataSMT.IdVel)
-            print("Serial 1:",str(self.dataSMT.Serial1),"Serial 2:",str(self.dataSMT.Serial2),"Serial 3:",str(self.dataSMT.Serial3))
-
-            self.NumSerial.SetValue(self.dataSMT.NumTanks)
-            self.Serial1.SetValue(self.dataSMT.Serial1)
-            self.Serial2.SetValue(self.dataSMT.Serial2)
-            self.Serial3.SetValue(self.dataSMT.Serial3)
-            self.rbox.SetSelection(self.dataSMT.IdVel)
-
+            self.rbox.SetSelection  (self.dataSMT.IdVel   )
+            self.NumSerial.SetValue (self.dataSMT.NumTanks)
+            self.Serial1.SetValue   (self.dataSMT.Serial1 )
+            self.Serial2.SetValue   (self.dataSMT.Serial2 )
+            self.Serial3.SetValue   (self.dataSMT.Serial3 )
+            self.Serial4.SetValue   (self.dataSMT.Serial4 )
 
         except:
             self.dataSMT.IdVel = 2
-            self.dataSMT.Vel = 9800
+            self.dataSMT.Vel = 9600
             self.rbox.SetSelection(self.dataSMT.IdVel)
+            self.dataSMT.NumTanks = 4
+            self.NumSerial.SetValue(self.dataSMT.NumTanks)
 
      
     def onRadioBox(self,e):
         self.dataSMT.IdVel = self.rbox.GetSelection()
         self.dataSMT.Vel   = self.rbox.GetStringSelection()
-        print(self.rbox.GetStringSelection(),' is clicked from Radio Box')  
         
     #----------------------------------------------------------------------
     def onBtn(self, event):
@@ -118,7 +122,8 @@ class ConfigMenu(wx.Frame):
         self.dataSMT.Serial1 = self.Serial1.GetValue()
         self.dataSMT.Serial2 = self.Serial2.GetValue()
         self.dataSMT.Serial3 = self.Serial3.GetValue()
-        print(self.dataSMT.Serial1,self.dataSMT.Serial2,self.dataSMT.Serial3)
+        self.dataSMT.Serial4 = self.Serial4.GetValue()
+        print(self.dataSMT)
         file = open("Data.smt",'w')
         file.write(str(self.dataSMT))
         file.close()
