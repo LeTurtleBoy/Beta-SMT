@@ -65,7 +65,6 @@ class SMT_Beta(wx.Frame):
 			return
 		
 		self.Destroy()
-		print("Saliendo")
 		os.kill(os.getpid(),signal.SIGTERM) #Salgo porque salgo
 		
 
@@ -115,8 +114,6 @@ class SMT_Beta(wx.Frame):
 		self.Bind(wx.EVT_TOOL, self.Izquierda, tundo)
 		self.Bind(wx.EVT_TOOL, self.Derecha, tredo)
 
-		print("Menu Done")
-
 	def Pestanhas(self):
 		self.p = wx.Panel(self)
 		self.nb = wx.Notebook(self.p)
@@ -140,8 +137,6 @@ class SMT_Beta(wx.Frame):
 		sizer = wx.BoxSizer(wx.VERTICAL)
 		sizer.Add(self.nb, 1, wx.ALL|wx.EXPAND, 5)
 		self.p.SetSizer(sizer)
-
-		print("Pestañas Done")
 
 	def Izquierda(self, e):
 		if self.count > 1 and self.count <= self.maxcount: #Si aprieto voy al menu
@@ -167,23 +162,23 @@ class SMT_Beta(wx.Frame):
 		#Llamar la ventana que sea necesaria
 		self.second_window = wx.Frame(None)
 		self.second_window.Show()
-		print(self.count)
 
 	def setPagenb(self):
 		try:
 			self.nb.SetSelection(self.count-1)
 		except Exception:
-			print("Pagina no Existe")
 			self.count -= 1
 
 	def Config(self, event):
-		self.second_window =Config.ConfigMenu()
+		self.second_window = Config.ConfigMenu()
+		self.second_window.Bind(wx.EVT_CLOSE, self.Configurado)
 		self.second_window.Show()
+		
 
-	def onbtn(self, event):
-		print ("First radioBtn = ", self.radio.GetValue())
-		print ("Second radioBtn = ", self.radio2.GetValue())
-
+	def Configurado(self, event):
+		#Desconectar Puerto Serial
+		self.second_window.OnClose()
+		#Reconectar Puerto Serial con los datos de Data.smt
 
 def main():
 	app = wx.App()
@@ -191,7 +186,6 @@ def main():
 	ex = SMT_Beta(wx.Frame(None),style=default)
 	ex.Show()
 	app.MainLoop()
-	print("State")
 	return()
 
 
