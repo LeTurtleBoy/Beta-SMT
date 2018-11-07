@@ -165,7 +165,6 @@ class ConfigMenu(wx.Frame):
 			else:
 				self.SerialL.Disable()
 				self.SerialW.Enable()
-
 		except:
 			self.dataSMT.IdVel = 2
 			self.dataSMT.Vel = 9600
