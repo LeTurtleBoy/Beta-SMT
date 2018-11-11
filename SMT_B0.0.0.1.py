@@ -12,7 +12,7 @@ import wx
 import wx.gizmos as gizmos
 import time
 
-sys.path.insert(0, 'Windows\\')
+sys.path.insert(0, 'E:\\Empresa\\Christian\\Versiones\\Github\\Beta SMT\\SMT\\Windows')
 import Config
 import Pest
 import Pest1
