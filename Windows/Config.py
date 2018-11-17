@@ -2,17 +2,12 @@ import wx
 import Scan
 import pandas as pd
 
-tty = [
-		"\\dev\\tty1" ,"\\dev\\tty2" ,"\\dev\\tty3" ,
-		"\\dev\\tty4" ,"\\dev\\tty5" ,"\\dev\\tty6" ,
-		"\\dev\\tty7" ,"\\dev\\tty8" ,"\\dev\\tty9" ,
-		"\\dev\\tty10" ,"\\dev\\tty11" ,"\\dev\\tty12" ,
-		"\\dev\\tty13" ,"\\dev\\tty14" ,"\\dev\\tty15" ,
-		"\\dev\\tty16" ,"\\dev\\tty17" ,"\\dev\\tty18" ,
-		"\\dev\\tty19" ,"\\dev\\tty20" ,"\\dev\\tty21" ,
-		"\\dev\\tty22" ,"\\dev\\tty23" ,"\\dev\\tty24" ,
-		"\\dev\\tty25" ,"\\dev\\tty26" ,"\\dev\\tty27" ,
-		"\\dev\\tty28" ,"\\dev\\tty29" ,"\\dev\\tty30"]
+ttyUSB = [
+		"\\dev\\ttyUSB0","\\dev\\ttyUSB1","\\dev\\ttyUSB2","\\dev\\ttyUSB3","\\dev\\ttyUSB4","\\dev\\ttyUSB5",
+		"\\dev\\ttyUSB6","\\dev\\ttyUSB7","\\dev\\ttyUSB8","\\dev\\ttyUSB9","\\dev\\ttyUSB10","\\dev\\ttyUSB11",
+		"\\dev\\ttyUSB12","\\dev\\ttyUSB13","\\dev\\ttyUSB14","\\dev\\ttyUSB15","\\dev\\ttyUSB16","\\dev\\ttyUSB17",
+		"\\dev\\ttyUSB18","\\dev\\ttyUSB19","\\dev\\ttyUSB20","\\dev\\ttyUSB21","\\dev\\ttyUSB22","\\dev\\ttyUSB23",
+		"\\dev\\ttyUSB24","\\dev\\ttyUSB25","\\dev\\ttyUSB26","\\dev\\ttyUSB27","\\dev\\ttyUSB28","\\dev\\ttyUSB29"]
 
 COM = [
 		"COM1" ,"COM2" ,"COM3" ,
@@ -102,7 +97,7 @@ class ConfigMenu(wx.Frame):
 		self.rbox2.Bind(wx.EVT_RADIOBOX,self.SistemaOperativo)
 		self.Label5 = wx.StaticText  ( pnl, pos = (170,200), label = "Selección de puerto serial:")
 		
-		self.SerialL = wx.Choice      ( pnl, pos = (170,220), choices=tty, style=0 ,size = (100,20))
+		self.SerialL = wx.Choice      ( pnl, pos = (170,220), choices=ttyUSB, style=0 ,size = (100,20))
 		self.SerialW = wx.Choice      ( pnl, pos = (170,250), choices=COM, style=0 ,size = (100,20))
 
 		wx.StaticLine    ( pnl, pos = (10 ,280), size  = (315,2))

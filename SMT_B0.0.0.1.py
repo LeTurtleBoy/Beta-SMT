@@ -11,14 +11,13 @@ import sys
 import wx
 import wx.gizmos as gizmos
 import time
-
+from wx.lib.pubsub import pub
 sys.path.insert(0, 'E:\\Empresa\\Christian\\Versiones\\Github\\Beta SMT\\SMT\\Windows')
 import Config
 import Pest
 import Pest1
-#import Serial
 
-        
+		
 
 
 class SMT_Beta(wx.Frame):
@@ -44,9 +43,11 @@ class SMT_Beta(wx.Frame):
 	
 		#Inicio de propiedades
 		self.Pestanhas()
-		self.Menus() #Creo los menus con Iconos
+		#Creo los menus con Iconos
+		self.Menus() 
 
 	#Herramientas y Eventos
+
 
 	#----------------------------------------------#
 	#				Evento Salida SMT
@@ -180,6 +181,18 @@ class SMT_Beta(wx.Frame):
 		self.second_window.OnClose()
 		#Reconectar Puerto Serial con los datos de Data.smt
 
+
+'''
+
+		self.timer = wx.Timer(self, -1)
+		self.timer.Start(1000)
+		self.Bind(wx.EVT_TIMER, self.OnTimer)
+
+	def OnTimer(self, event):
+		pub.sendMessage("Pest1", message="Tango")
+		pub.sendMessage("Pest1", message="Tango", arg2="Tango 2")
+
+'''	
 def main():
 	app = wx.App()
 	default = wx.RESIZE_BORDER | wx.SYSTEM_MENU | wx.CAPTION | wx.CLOSE_BOX | wx.CLIP_CHILDREN | wx.FRAME_NO_TASKBAR | wx.STAY_ON_TOP

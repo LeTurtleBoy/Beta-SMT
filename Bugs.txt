@@ -1,0 +1,1 @@
+Arreglar selecciòn de ventana con flechitas.
